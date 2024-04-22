@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          badge_id: badge_id,
+          username: badge_id,
           password: password,
         }),
       }
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
       setLoading(false);
     } else if (response.status === 401) {
-      alert("Invalid email or password!");
+      alert("Invalid badge or password!");
       setLoading(false);
     } else {
       alert("Something went wrong!");

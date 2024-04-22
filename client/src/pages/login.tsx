@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -61,9 +62,7 @@ export function Login() {
               <FormControl>
                 <Input placeholder="12345" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your badge number
-              </FormDescription>
+              <FormDescription>This is your badge number</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -85,6 +84,7 @@ export function Login() {
           )}
         />
         <Button type="submit">Submit</Button>
+        <Link to="/form">Go to form</Link>
       </form>
     </Form>
   );
