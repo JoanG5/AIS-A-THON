@@ -3,12 +3,15 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type Props = {};
 
 function form({}: Props) {
   const [name, setName] = useState<string>("");
   const [dob, setDob] = useState<string>("");
+  const [sex, setSex] = useState<string>("");
+  const [pregnanciesDisabled, setPregnanciesDisabled] = useState(false);
   const [pregnancies, setPregnancies] = useState<number>(0);
   const [plasmaGlucoseConcentration, setPlasmaGlucoseConcentration] =
     useState<number>(0);
@@ -33,12 +36,59 @@ function form({}: Props) {
     setAge(age);
   };
 
+  const handleSexChange = (event) => {
+    setSex(event.target.value);
+    setPregnanciesDisabled(event.target.value === "male");
+    if (event.target.value === "male") {
+      setPregnancies(0);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("dob", dob);
+    formData.append("pregnancies", pregnancies.toString());
+    formData.append(
+      "plasmaGlucoseConcentration",
+      plasmaGlucoseConcentration.toString()
+    );
+    formData.append(
+      "diastolicBloodPressure",
+      diastolicBloodPressure.toString()
+    );
+    formData.append(
+      "tricepsSkinfoldThickness",
+      tricepsSkinfoldThickness.toString()
+    );
+    formData.append("serumInsulin", serumInsulin.toString());
+    formData.append("bmi", bmi.toString());
+    formData.append(
+      "diabetesPedigreeFunction",
+      diabetesPedigreeFunction.toString()
+    );
+    formData.append("age", age.toString());
+
+    const request = await axios.post(
+      "http://localhost:8000/api/form_submit/",
+      formData
+    );
+    request
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <div className="flex flex-col">
         <div className="flex flex-row">
           <div className="m-5">
-            <Label>Name</Label>
+            <Label>Patient's Name</Label>
             <Input
               onChange={(e) => {
                 setName(e.target.value);
@@ -50,10 +100,36 @@ function form({}: Props) {
             <Input
               type="date"
               onChange={(e) => {
-                setDob(e.target.value)
+                setDob(e.target.value);
                 calculateAge(e.target.value);
               }}
             />
+          </div>
+          <div className="m-5">
+            <Label>Sex</Label>
+            <div className="flex flex-row mt-2">
+              <label className="mr-2">
+                <input
+                  type="radio"
+                  name="sex"
+                  value="male"
+                  checked={sex === "male"}
+                  onChange={handleSexChange}
+                />
+                Male
+              </label>
+              <br />
+              <label>
+                <input
+                  type="radio"
+                  name="sex"
+                  value="female"
+                  checked={sex === "female"}
+                  onChange={handleSexChange}
+                />
+                Female
+              </label>
+            </div>
           </div>
         </div>
 
@@ -62,6 +138,8 @@ function form({}: Props) {
             <Label>Amount of Pregnancies</Label>
             <Input
               type="number"
+              min={0}
+              disabled={pregnanciesDisabled}
               onChange={(e) => {
                 setPregnancies(parseInt(e.target.value, 10));
               }}
@@ -71,6 +149,7 @@ function form({}: Props) {
             <Label>Plasma Glucose Concentration</Label>
             <Input
               type="number"
+              min={0}
               onChange={(e) => {
                 setPlasmaGlucoseConcentration(parseInt(e.target.value, 10));
               }}
@@ -80,6 +159,7 @@ function form({}: Props) {
             <Label>Diastolic Blood Pressure (mm Hg)</Label>
             <Input
               type="number"
+              min={0}
               onChange={(e) => {
                 setDiastolicBloodPressure(parseInt(e.target.value, 10));
               }}
@@ -92,6 +172,7 @@ function form({}: Props) {
             <Label>Triceps Skinfold Thickness (mm)</Label>
             <Input
               type="number"
+              min={0}
               onChange={(e) => {
                 setTricepsSkinfoldThickness(parseInt(e.target.value, 10));
               }}
@@ -101,6 +182,7 @@ function form({}: Props) {
             <Label>2-Hour Serum Insulin (mu U/ml)</Label>
             <Input
               type="number"
+              min={0}
               onChange={(e) => {
                 setSerumInsulin(parseInt(e.target.value, 10));
               }}
@@ -109,7 +191,9 @@ function form({}: Props) {
           <div className="m-5">
             <Label>Body mass index (weight in kg / height in m^2)</Label>
             <Input
-              type="decimal"
+              type="number"
+              step=".01"
+              min={0}
               onChange={(e) => {
                 setBmi(parseFloat(e.target.value));
               }}
@@ -122,7 +206,8 @@ function form({}: Props) {
             <Label>Diabetes Pedigree Function</Label>
             <Input
               type="number"
-              pattern="^\d*(\.\d{0,2})?$"
+              step=".01"
+              min={0}
               onChange={(e) => {
                 setDiabetesPedigreeFunction(parseFloat(e.target.value));
               }}
@@ -132,15 +217,15 @@ function form({}: Props) {
             <Label>2-Hour Serum Insulin (mu U/ml)</Label>
             <Input
               type="number"
-              pattern="^\d*(\.\d{0,2})?$"
+              min={0}
               onChange={(e) => {
-                setSerumInsulin(parseFloat(e.target.value));
+                setSerumInsulin(parseInt(e.target.value));
               }}
             />
           </div>
         </div>
         <div className="flex justify-center">
-          <Button type="submit" className="m-5 w-3/6">
+          <Button type="submit" onClick={handleSubmit} className="m-5 w-3/6">
             Submit
           </Button>
         </div>
