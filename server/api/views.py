@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.urls import get_resolver
 from django.http import HttpResponse, JsonResponse
-
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .models import UserDiabetesScreeningData
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -23,8 +23,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-from django.contrib.auth.models import User
-from .models import UserDiabetesScreeningData
 
 
 @api_view(['GET'])
