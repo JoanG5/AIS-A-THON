@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   id: z.string().min(1, { message: "Id is required" }),
@@ -50,9 +51,7 @@ export function Login() {
               <FormControl>
                 <Input placeholder="12345" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your badge number
-              </FormDescription>
+              <FormDescription>This is your badge number</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -74,6 +73,7 @@ export function Login() {
           )}
         />
         <Button type="submit">Submit</Button>
+        <Link to="/form">Go to form</Link>
       </form>
     </Form>
   );
