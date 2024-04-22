@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import get_resolver
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -33,7 +33,7 @@ def form_submit(request):
         try:
             new_user_screening.save()
             print("Form submitted successfully!")
-            return HttpResponse({"message": "Form submitted successfully!"})
+            return JsonResponse({"message": "Form submitted successfully!"}, status=200)
         except Exception as e:
-            return Response({"message": f"Error: {e}"})
+            return JsonResponse({"message": f"Error: {e}"})
         
