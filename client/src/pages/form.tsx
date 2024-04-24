@@ -71,16 +71,17 @@ function form({}: Props) {
     formData.append("age", age.toString());
 
     const request = await axios.post(
-      "http://localhost:8000/api/form_submit/",
+      "http://localhost:8000/api/patient_data/",
       formData
     );
-    request
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(request.data);
+    // request
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   return (

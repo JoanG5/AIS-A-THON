@@ -84,7 +84,9 @@ export function Login() {
           )}
         />
         <Button type="submit">Submit</Button>
-        <Link to="/form">Go to form</Link>
+        {/* LINK FOR TESTING PURPOSE :^) */}
+        <Link to="/form">Go to form</Link> 
+        <Link to="/patient-data">Go to patient data</Link>
       </form>
     </Form>
   );

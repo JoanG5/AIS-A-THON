@@ -29,13 +29,19 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 def health(request):
     return Response("Server is up and runnning!")
 
-@api_view(['POST'])
-def form_submit(request):
+@api_view(['GET', 'POST'])
+def patient_data(request):
+    if request.method == 'GET':
+        # all_patients = UserDiabetesScreeningData.objects.all()
+        # print(all_patients)
+        print("Working here")
+        return JsonResponse({"data": "nice"}, status=200)
+
     if request.method == 'POST':
         data = request.data
         user = User.objects.get(id=1) # This is a temporary value. We will change this later on.
         new_user_screening = UserDiabetesScreeningData.objects.create(
-            user=user,
+            user=user,  
             pregnancies=data['pregnancies'],
             glucose=data['plasmaGlucoseConcentration'],
             blood_pressure=data['diastolicBloodPressure'],
