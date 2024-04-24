@@ -41,6 +41,8 @@ def patient_data(request):
         user = User.objects.get(id=1) # This is a temporary value. We will change this later on.
         new_user_screening = UserDiabetesScreeningData.objects.create(
             user=user,  
+            name=data['name'],
+            DOB=str(data['dob']),
             pregnancies=data['pregnancies'],
             glucose=data['plasmaGlucoseConcentration'],
             blood_pressure=data['diastolicBloodPressure'],
@@ -50,7 +52,6 @@ def patient_data(request):
             diabetes_pedigree_function=data['diabetesPedigreeFunction'],
             age=data['age']
         )
-        print(new_user_screening)
         try:
             new_user_screening.save()
             print("Form submitted successfully!")

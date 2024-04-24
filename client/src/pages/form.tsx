@@ -79,7 +79,7 @@ function form({}: Props) {
       console.log(error);
     }
   };
-
+  console.log(dob);
   return (
     <div>
       <div className="flex flex-col">
