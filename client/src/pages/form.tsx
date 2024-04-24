@@ -93,7 +93,7 @@ function form({}: Props) {
             />
           </div>
           <div className="m-5">
-            <Label>DOB</Label>
+            <Label>Date of Birth</Label>
             <Input
               type="date"
               onChange={(e) => {
