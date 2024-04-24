@@ -17,26 +17,37 @@ import {
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 
-const formSchema = z.object({
-  id: z.string().min(1, { message: "Id is required" }),
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import AuthContext from "@/context/auth-context";
+
+const loginFormSchema = z.object({
+  badge_id: z.string().min(1, { message: "Badge ID is required" }),
   password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
 });
 
 export function Login() {
+  const { loginUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      id: "",
+      badge_id: "",
       password: "",
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof loginFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const response = await loginUser(values.badge_id, values.password);
+    if (response.ok) {
+      navigate("/form");
+    }
   }
 
   return (
@@ -44,10 +55,10 @@ export function Login() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="id"
+          name="badge_id"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Id</FormLabel>
+              <FormLabel>Badge ID</FormLabel>
               <FormControl>
                 <Input placeholder="12345" {...field} />
               </FormControl>

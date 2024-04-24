@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { createHashRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./context/auth-context";
 import Login from "./pages/login";
 import Form from "./pages/form";
 import PatientData from "./pages/patientData";
@@ -21,5 +22,7 @@ const router = createHashRouter([
 
 
 createRoot(document.getElementById("root")).render(
-    <RouterProvider router={router} />
+    <AuthProvider>
+        <RouterProvider router={router} />
+    </AuthProvider>
   );
