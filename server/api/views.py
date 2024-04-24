@@ -32,10 +32,9 @@ def health(request):
 @api_view(['GET', 'POST'])
 def patient_data(request):
     if request.method == 'GET':
-        # all_patients = UserDiabetesScreeningData.objects.all()
-        # print(all_patients)
-        print("Working here")
-        return JsonResponse({"data": "nice"}, status=200)
+        all_patients = UserDiabetesScreeningData.objects.all()
+        all_patients_list = [patient for patient in all_patients.values()]
+        return JsonResponse({"data": all_patients_list}, status=200)
 
     if request.method == 'POST':
         data = request.data

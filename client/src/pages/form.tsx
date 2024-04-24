@@ -69,19 +69,15 @@ function form({}: Props) {
       diabetesPedigreeFunction.toString()
     );
     formData.append("age", age.toString());
-
-    const request = await axios.post(
-      "http://localhost:8000/api/patient_data/",
-      formData
-    );
-    console.log(request.data);
-    // request
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    try {
+      const request = await axios.post(
+        "http://localhost:8000/api/patient_data/",
+        formData
+      );
+      console.log(request.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
