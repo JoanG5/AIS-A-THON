@@ -33,7 +33,7 @@ function form({}: Props) {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
 
   const style = {
     position: "absolute" as "absolute",
@@ -270,7 +270,6 @@ function form({}: Props) {
           </Button>
           <Modal
             open={open}
-            onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
