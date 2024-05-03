@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 type Props = {};
 
 function form({}: Props) {
-  const [name, setName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [middleName, setMiddleName] = useState<string>("");
   const [dob, setDob] = useState<string>("");
   const [sex, setSex] = useState<string>("");
   const [pregnanciesDisabled, setPregnanciesDisabled] = useState(false);
@@ -47,7 +49,9 @@ function form({}: Props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("middleName", middleName);
     formData.append("dob", dob);
     formData.append("pregnancies", pregnancies.toString());
     formData.append(
@@ -81,17 +85,35 @@ function form({}: Props) {
   };
   console.log(dob);
   return (
-    <div>
+    <div className="flex justify-center">
       <div className="flex flex-col">
         <div className="flex flex-row">
           <div className="m-5">
-            <Label>Patient's Name</Label>
+            <Label>Patient's First Name</Label>
             <Input
               onChange={(e) => {
-                setName(e.target.value);
+                setFirstName(e.target.value);
               }}
             />
           </div>
+          <div className="m-5">
+            <Label>Patient's Middle Name</Label>
+            <Input
+              onChange={(e) => {
+                setMiddleName(e.target.value);
+              }}
+            />
+          </div>
+          <div className="m-5">
+            <Label>Patient's Last Name</Label>
+            <Input
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
+          </div>
+        </div>
+        <div className="flex flex-row">
           <div className="m-5">
             <Label>Date of Birth</Label>
             <Input

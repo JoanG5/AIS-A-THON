@@ -16,6 +16,9 @@ type Props = {};
 
 interface PatientDataResponse {
   id: number;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
   pregnancies: number;
   glucose: number;
   blood_pressure: number;
@@ -77,6 +80,7 @@ function PatientData({}: Props) {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">ID</TableHead>
+              <TableHead>Name</TableHead>
               <TableHead>Age</TableHead>
               <TableHead>Blood Pressure</TableHead>
               <TableHead>BMI</TableHead>
@@ -91,6 +95,9 @@ function PatientData({}: Props) {
             {filteredPatients.map((patient) => (
               <TableRow key={patient.id}>
                 <TableCell className="font-medium">{patient.id}</TableCell>
+                <TableCell>
+                  {patient.first_name} {patient.middle_name} {patient.last_name}
+                </TableCell>
                 <TableCell>{patient.age}</TableCell>
                 <TableCell>{patient.blood_pressure}</TableCell>
                 <TableCell>{patient.bmi}</TableCell>

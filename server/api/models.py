@@ -7,7 +7,9 @@ from datetime import datetime
 class UserDiabetesScreeningData(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Associated User")
-    name = models.CharField(default="", max_length=255, help_text="Name of the individual.")
+    first_name = models.CharField(default="", max_length=255, help_text="First name of the individual.")
+    last_name = models.CharField(default="", max_length=255, help_text="Last name of the individual.")
+    middle_name = models.CharField(default="", max_length=255, help_text="Middle name of the individual.")
     DOB = models.DateField(default=datetime.now ,help_text="Date of birth of the individual.")
     pregnancies = models.IntegerField(
         validators=[MinValueValidator(0)], 

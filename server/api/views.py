@@ -41,7 +41,9 @@ def patient_data(request):
         user = User.objects.get(id=1) # This is a temporary value. We will change this later on.
         new_user_screening = UserDiabetesScreeningData.objects.create(
             user=user,  
-            name=data['name'],
+            first_name=data['firstName'],
+            last_name=data['lastName'],
+            middle_name=data['middleName'],
             DOB=str(data['dob']),
             pregnancies=data['pregnancies'],
             glucose=data['plasmaGlucoseConcentration'],
