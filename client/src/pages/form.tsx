@@ -100,7 +100,6 @@ function form({}: Props) {
       );
       console.log(request.data);
       handleOpen();
-      window.location.href = "/#/hub";
     } catch (error) {
       console.log(error);
     }

@@ -46,7 +46,7 @@ export function Login() {
     // ✅ This will be type-safe and validated.
     const response = await loginUser(values.badge_id, values.password);
     if (response.ok) {
-      navigate("/form");
+      navigate("/hub");
     }
   }
 
