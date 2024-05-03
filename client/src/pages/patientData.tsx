@@ -10,7 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 type Props = {};
 
@@ -19,6 +21,7 @@ interface PatientDataResponse {
   first_name: string;
   middle_name: string;
   last_name: string;
+  DOB: string;
   pregnancies: number;
   glucose: number;
   blood_pressure: number;
@@ -36,6 +39,10 @@ function PatientData({}: Props) {
   >([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  const [searchID, setSearchID] = useState<string>("");
+  const [searchName, setSearchName] = useState<string>("");
+  const [searchDOB, setSearchDOB] = useState<string>("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,29 +58,73 @@ function PatientData({}: Props) {
     fetchData();
   }, []);
 
-  const handleSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    filterPatients(query);
+  const filteredPatient = () => {
+    let filteredPatients = patientData;
+    if (searchID !== "") {
+      filteredPatients = filteredPatients.filter((patient) =>
+        patient.id.toString().toLowerCase().includes(searchID.toLowerCase())
+      );
+    }
+    if (searchName !== "") {
+      filteredPatients = filteredPatients.filter((patient) =>
+        patient.first_name.toLowerCase().includes(searchName.toLowerCase())
+      );
+    }
+    if (searchDOB !== "") {
+      filteredPatients = filteredPatients.filter((patient) =>
+        patient.DOB.toString().includes(searchDOB.toLowerCase())
+      );
+    }
+
+    setFilteredPatients(filteredPatients);
   };
 
-  const filterPatients = (query: string) => {
-    const filtered = patientData.filter((patient) =>
-      patient.id.toString().includes(query.toLowerCase())
-    );
-    setFilteredPatients(filtered);
-  };
+    console.log(searchID, searchName, searchDOB);
+
 
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="w-[600px] m-5">
-        <h2 className="font-bold text-2xl mb-2">Search Patients</h2>{" "}
-        <Input
-          type="text"
-          placeholder="Search patients by ID"
-          value={searchQuery}
-          onChange={handleSearchQueryChange}
-        />
+        <h2 className="font-bold text-2xl mb-2 text-center">Search Patients</h2>{" "}
+        <div className="flex flex-row">
+          <div className="m-3">
+            <Label>Patient's ID</Label>
+            <Input
+              type="text"
+              placeholder="Search patients by ID"
+              onChange={(e) => {
+                setSearchID(e.target.value);
+                filteredPatient();
+              }}
+            />
+          </div>
+          <div className="m-3">
+            <Label>Patient's Name</Label>
+            <Input
+              type="text"
+              placeholder="Search patients by Name"
+              onChange={(e) => {
+                setSearchName(e.target.value);
+                filteredPatient();
+              }}
+            />
+          </div>
+          <div className="m-3">
+            <Label>Patient's DOB</Label>
+            <Input
+              type="date"
+              placeholder="Search patients by DOB"
+              onChange={(e) => {
+                setSearchDOB(e.target.value);
+                filteredPatient();
+              }}
+            />
+          </div>
+          <div className="m-3">
+            <Label>&nbsp;</Label>
+              <Button onClick={filteredPatient}>Search</Button>
+          </div>
+        </div>
       </div>
       <div className="w-11/12">
         <Table>
