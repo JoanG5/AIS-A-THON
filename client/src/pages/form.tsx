@@ -3,12 +3,18 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 // import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type Props = {};
 
 function form({}: Props) {
-  const [name, setName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [middleName, setMiddleName] = useState<string>("");
   const [dob, setDob] = useState<string>("");
   const [sex, setSex] = useState<string>("");
   const [pregnanciesDisabled, setPregnanciesDisabled] = useState(false);
@@ -24,6 +30,22 @@ function form({}: Props) {
   const [diabetesPedigreeFunction, setDiabetesPedigreeFunction] =
     useState<number>(0);
   const [age, setAge] = useState<number>(0);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   const calculateAge = (dob: string) => {
     const today = new Date();
@@ -47,7 +69,9 @@ function form({}: Props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("middleName", middleName);
     formData.append("dob", dob);
     formData.append("pregnancies", pregnancies.toString());
     formData.append(
@@ -69,35 +93,51 @@ function form({}: Props) {
       diabetesPedigreeFunction.toString()
     );
     formData.append("age", age.toString());
-
-    const request = await axios.post(
-      "http://localhost:8000/api/patient_data/",
-      formData
-    );
-    console.log(request.data);
-    // request
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    try {
+      const request = await axios.post(
+        "http://localhost:8000/api/patient_data/",
+        formData
+      );
+      console.log(request.data);
+      handleOpen();
+      window.location.href = "/#/hub";
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  console.log(dob);
   return (
-    <div>
+    <div className="flex justify-center">
       <div className="flex flex-col">
         <div className="flex flex-row">
           <div className="m-5">
-            <Label>Patient's Name</Label>
+            <Label>Patient's First Name</Label>
             <Input
               onChange={(e) => {
-                setName(e.target.value);
+                setFirstName(e.target.value);
               }}
             />
           </div>
           <div className="m-5">
-            <Label>DOB</Label>
+            <Label>Patient's Middle Name</Label>
+            <Input
+              onChange={(e) => {
+                setMiddleName(e.target.value);
+              }}
+            />
+          </div>
+          <div className="m-5">
+            <Label>Patient's Last Name</Label>
+            <Input
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
+          </div>
+        </div>
+        <div className="flex flex-row">
+          <div className="m-5">
+            <Label>Date of Birth</Label>
             <Input
               type="date"
               onChange={(e) => {
@@ -229,6 +269,30 @@ function form({}: Props) {
           <Button type="submit" onClick={handleSubmit} className="m-5 w-3/6">
             Submit
           </Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <h1
+                id="modal-modal-title"
+                className="text-center text-2xl font-bold"
+              >
+                Patient's Data Submitted
+              </h1>
+              <div className="flex justify-center">
+                <Button
+                  type="submit"
+                  onClick={handleSubmit}
+                  className="m-10 w-3/6"
+                >
+                  <Link to="/hub"> Head to Hub</Link>
+                </Button>
+              </div>
+            </Box>
+          </Modal>
         </div>
       </div>
     </div>

@@ -32,16 +32,19 @@ def health(request):
 @api_view(['GET', 'POST'])
 def patient_data(request):
     if request.method == 'GET':
-        # all_patients = UserDiabetesScreeningData.objects.all()
-        # print(all_patients)
-        print("Working here")
-        return JsonResponse({"data": "nice"}, status=200)
+        all_patients = UserDiabetesScreeningData.objects.all()
+        all_patients_list = [patient for patient in all_patients.values()]
+        return JsonResponse({"data": all_patients_list}, status=200)
 
     if request.method == 'POST':
         data = request.data
         user = User.objects.get(id=1) # This is a temporary value. We will change this later on.
         new_user_screening = UserDiabetesScreeningData.objects.create(
             user=user,  
+            first_name=data['firstName'],
+            last_name=data['lastName'],
+            middle_name=data['middleName'],
+            DOB=str(data['dob']),
             pregnancies=data['pregnancies'],
             glucose=data['plasmaGlucoseConcentration'],
             blood_pressure=data['diastolicBloodPressure'],
@@ -51,7 +54,6 @@ def patient_data(request):
             diabetes_pedigree_function=data['diabetesPedigreeFunction'],
             age=data['age']
         )
-        print(new_user_screening)
         try:
             new_user_screening.save()
             print("Form submitted successfully!")

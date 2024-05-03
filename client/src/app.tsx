@@ -4,6 +4,7 @@ import { AuthProvider } from "./context/auth-context";
 import Login from "./pages/login";
 import Form from "./pages/form";
 import PatientData from "./pages/patientData";
+import Hub from "./pages/hub";
 
 const router = createHashRouter([
     {
@@ -17,7 +18,11 @@ const router = createHashRouter([
     {
         path: "/patient-data",
         element: <PatientData />,
-    }
+    },
+    {
+        path: "/hub",
+        element: <Hub />,
+    },
 ])
 
 
