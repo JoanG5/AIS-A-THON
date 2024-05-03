@@ -40,7 +40,7 @@ function hub({}: Props) {
       <h1 className="text-4xl font-bold my-20">Navigation</h1>
       <div className="flex flex-col space-y-4 mt-3">
         <Link
-          to=""
+          to="/form"
           className={`h-20 w-4/5 text-xl mx-auto ${buttonVariants({
             variant: "default",
             size: "default",
@@ -49,7 +49,7 @@ function hub({}: Props) {
           Input Patient Data
         </Link>
         <Link
-          to=""
+          to="/patient-data"
           className={`h-20 w-4/5 text-xl mx-auto ${buttonVariants({
             variant: "default",
             size: "default",
