@@ -94,7 +94,6 @@ function PatientData({}: Props) {
               placeholder="Search patients by ID"
               onChange={(e) => {
                 setSearchID(e.target.value);
-                filteredPatient();
               }}
             />
           </div>
@@ -105,7 +104,6 @@ function PatientData({}: Props) {
               placeholder="Search patients by Name"
               onChange={(e) => {
                 setSearchName(e.target.value);
-                filteredPatient();
               }}
             />
           </div>
@@ -116,7 +114,6 @@ function PatientData({}: Props) {
               placeholder="Search patients by DOB"
               onChange={(e) => {
                 setSearchDOB(e.target.value);
-                filteredPatient();
               }}
             />
           </div>
