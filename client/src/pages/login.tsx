@@ -46,7 +46,7 @@ export function Login() {
     // ✅ This will be type-safe and validated.
     const response = await loginUser(values.badge_id, values.password);
     if (response.ok) {
-      navigate("/form");
+      navigate("/hub");
     }
   }
 
@@ -84,9 +84,6 @@ export function Login() {
           )}
         />
         <Button type="submit">Submit</Button>
-        {/* LINK FOR TESTING PURPOSE :^) */}
-        <Link to="/form">Go to form</Link> 
-        <Link to="/patient-data">Go to patient data</Link>
       </form>
     </Form>
   );

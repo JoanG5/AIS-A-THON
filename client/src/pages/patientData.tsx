@@ -66,9 +66,32 @@ function PatientData({}: Props) {
       );
     }
     if (searchName !== "") {
+      const nameCharacters = searchName.split(" ");
+
       filteredPatients = filteredPatients.filter((patient) =>
-        patient.first_name.toLowerCase().includes(searchName.toLowerCase())
+        patient.first_name
+          .toLowerCase()
+          .includes(nameCharacters[0].toLowerCase())
       );
+      if (nameCharacters.length === 2) {
+        filteredPatients = filteredPatients.filter((patient) =>
+          patient.last_name
+            .toLowerCase()
+            .includes(nameCharacters[1].toLowerCase())
+        );
+      }
+      if (nameCharacters.length === 3) {
+        filteredPatients = filteredPatients.filter((patient) =>
+          patient.middle_name
+            .toLowerCase()
+            .includes(nameCharacters[1].toLowerCase())
+        );
+        filteredPatients = filteredPatients.filter((patient) =>
+          patient.last_name
+            .toLowerCase()
+            .includes(nameCharacters[2].toLowerCase())
+        );
+      }
     }
     if (searchDOB !== "") {
       filteredPatients = filteredPatients.filter((patient) =>
@@ -78,9 +101,6 @@ function PatientData({}: Props) {
 
     setFilteredPatients(filteredPatients);
   };
-
-    console.log(searchID, searchName, searchDOB);
-
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -119,7 +139,7 @@ function PatientData({}: Props) {
           </div>
           <div className="m-3">
             <Label>&nbsp;</Label>
-              <Button onClick={filteredPatient}>Search</Button>
+            <Button onClick={filteredPatient}>Search</Button>
           </div>
         </div>
       </div>
