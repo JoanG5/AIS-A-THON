@@ -33,7 +33,7 @@ function form({}: Props) {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
 
   const style = {
     position: "absolute" as "absolute",
@@ -100,7 +100,6 @@ function form({}: Props) {
       );
       console.log(request.data);
       handleOpen();
-      window.location.href = "/#/hub";
     } catch (error) {
       console.log(error);
     }
@@ -146,6 +145,7 @@ function form({}: Props) {
               <Label>Date of Birth</Label>
               <Input
                 type="date"
+                max={new Date().toISOString().split("T")[0]}
                 onChange={(e) => {
                   setDob(e.target.value);
                   calculateAge(e.target.value);
@@ -267,7 +267,6 @@ function form({}: Props) {
             </Button>
             <Modal
               open={open}
-              onClose={handleClose}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
