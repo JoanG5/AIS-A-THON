@@ -13,6 +13,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -30,6 +31,7 @@ interface PatientDataResponse {
   bmi: number;
   diabetes_pedigree_function: number;
   age: number;
+  prediction: number | null;
 }
 
 function PatientData({}: Props) {
@@ -79,11 +81,13 @@ function PatientData({}: Props) {
     setFilteredPatients(filteredPatients);
   };
 
-    console.log(searchID, searchName, searchDOB);
-
+  console.log(searchID, searchName, searchDOB);
 
   return (
     <div className="flex flex-col items-center justify-center">
+      <Link to="/hub" className="m-5 mr-auto">
+        <Button variant="ghost">&lt; Head to Hub</Button>
+      </Link>
       <div className="w-[600px] m-5">
         <h2 className="font-bold text-2xl mb-2 text-center">Search Patients</h2>{" "}
         <div className="flex flex-row">
@@ -119,7 +123,7 @@ function PatientData({}: Props) {
           </div>
           <div className="m-3">
             <Label>&nbsp;</Label>
-              <Button onClick={filteredPatient}>Search</Button>
+            <Button onClick={filteredPatient}>Search</Button>
           </div>
         </div>
       </div>
@@ -137,6 +141,7 @@ function PatientData({}: Props) {
               <TableHead>Pregnancies</TableHead>
               <TableHead>Skin Thickness</TableHead>
               <TableHead className="">Diabetes Pedigree</TableHead>
+              <TableHead>{"(BETA) Prediction"}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -156,6 +161,7 @@ function PatientData({}: Props) {
                 <TableCell className="">
                   {patient.diabetes_pedigree_function}
                 </TableCell>
+                <TableCell>{patient.prediction ? (patient.prediction * 100).toFixed(2) + "%" : "N/A"}</TableCell>
               </TableRow>
             ))}
           </TableBody>

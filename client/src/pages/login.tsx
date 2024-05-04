@@ -24,7 +24,9 @@ import AuthContext from "@/context/auth-context";
 
 const loginFormSchema = z.object({
   badge_id: z.string().min(1, { message: "Badge ID is required" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" }),
 });
 
 export function Login() {
@@ -46,49 +48,50 @@ export function Login() {
     // ✅ This will be type-safe and validated.
     const response = await loginUser(values.badge_id, values.password);
     if (response.ok) {
-      navigate("/form");
+      navigate("/hub");
     }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="badge_id"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Badge ID</FormLabel>
-              <FormControl>
-                <Input placeholder="12345" {...field} />
-              </FormControl>
-              <FormDescription>This is your badge number</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input placeholder="Password" type="password" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is password associated with your badge number
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-        {/* LINK FOR TESTING PURPOSE :^) */}
-        <Link to="/form">Go to form</Link> 
-        <Link to="/patient-data">Go to patient data</Link>
-      </form>
-    </Form>
+    <div className="w-screen h-screen flex justify-center items-center bg-gray-200">
+      <div className="border p-12 rounded-lg bg-white">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="badge_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Badge ID</FormLabel>
+                  <FormControl>
+                    <Input placeholder="12345" {...field} />
+                  </FormControl>
+                  <FormDescription>This is your badge number</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Password" type="password" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    This is password associated with your badge number
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
+      </div>
+    </div>
   );
 }
 export default Login;

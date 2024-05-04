@@ -107,192 +107,189 @@ function form({}: Props) {
   };
   console.log(dob);
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col">
-        <div className="flex flex-row">
-          <div className="m-5">
-            <Label>Patient's First Name</Label>
-            <Input
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>Patient's Middle Name</Label>
-            <Input
-              onChange={(e) => {
-                setMiddleName(e.target.value);
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>Patient's Last Name</Label>
-            <Input
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
-            />
-          </div>
-        </div>
-        <div className="flex flex-row">
-          <div className="m-5">
-            <Label>Date of Birth</Label>
-            <Input
-              type="date"
-              onChange={(e) => {
-                setDob(e.target.value);
-                calculateAge(e.target.value);
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>Sex</Label>
-            <div className="flex flex-row mt-2">
-              <label className="mr-2">
-                <input
-                  type="radio"
-                  name="sex"
-                  value="male"
-                  checked={sex === "male"}
-                  onChange={handleSexChange}
-                />
-                Male
-              </label>
-              <br />
-              <label>
-                <input
-                  type="radio"
-                  name="sex"
-                  value="female"
-                  checked={sex === "female"}
-                  onChange={handleSexChange}
-                />
-                Female
-              </label>
+    <div>
+      <Link to="/hub" className="mr-auto">
+        <Button variant="ghost" className="m-5">
+          &lt; Head to Hub
+        </Button>
+      </Link>
+      <div className="flex justify-center">
+        <div className="flex flex-col">
+          <div className="flex flex-row">
+            <div className="m-5">
+              <Label>Patient's First Name</Label>
+              <Input
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="m-5">
+              <Label>Patient's Middle Name</Label>
+              <Input
+                onChange={(e) => {
+                  setMiddleName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="m-5">
+              <Label>Patient's Last Name</Label>
+              <Input
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
+              />
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-row">
-          <div className="m-5">
-            <Label>Amount of Pregnancies</Label>
-            <Input
-              type="number"
-              min={0}
-              disabled={pregnanciesDisabled}
-              onChange={(e) => {
-                setPregnancies(parseInt(e.target.value, 10));
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>Plasma Glucose Concentration</Label>
-            <Input
-              type="number"
-              min={0}
-              onChange={(e) => {
-                setPlasmaGlucoseConcentration(parseInt(e.target.value, 10));
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>Diastolic Blood Pressure (mm Hg)</Label>
-            <Input
-              type="number"
-              min={0}
-              onChange={(e) => {
-                setDiastolicBloodPressure(parseInt(e.target.value, 10));
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-row">
-          <div className="m-5">
-            <Label>Triceps Skinfold Thickness (mm)</Label>
-            <Input
-              type="number"
-              min={0}
-              onChange={(e) => {
-                setTricepsSkinfoldThickness(parseInt(e.target.value, 10));
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>2-Hour Serum Insulin (mu U/ml)</Label>
-            <Input
-              type="number"
-              min={0}
-              onChange={(e) => {
-                setSerumInsulin(parseInt(e.target.value, 10));
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>Body mass index (weight in kg / height in m^2)</Label>
-            <Input
-              type="number"
-              step=".01"
-              min={0}
-              onChange={(e) => {
-                setBmi(parseFloat(e.target.value));
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-row">
-          <div className="m-5">
-            <Label>Diabetes Pedigree Function</Label>
-            <Input
-              type="number"
-              step=".01"
-              min={0}
-              onChange={(e) => {
-                setDiabetesPedigreeFunction(parseFloat(e.target.value));
-              }}
-            />
-          </div>
-          <div className="m-5">
-            <Label>2-Hour Serum Insulin (mu U/ml)</Label>
-            <Input
-              type="number"
-              min={0}
-              onChange={(e) => {
-                setSerumInsulin(parseInt(e.target.value));
-              }}
-            />
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <Button type="submit" onClick={handleSubmit} className="m-5 w-3/6">
-            Submit
-          </Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <h1
-                id="modal-modal-title"
-                className="text-center text-2xl font-bold"
-              >
-                Patient's Data Submitted
-              </h1>
-              <div className="flex justify-center">
-                <Button
-                  type="submit"
-                  onClick={handleSubmit}
-                  className="m-10 w-3/6"
-                >
-                  <Link to="/hub"> Head to Hub</Link>
-                </Button>
+          <div className="flex flex-row">
+            <div className="m-5">
+              <Label>Date of Birth</Label>
+              <Input
+                type="date"
+                onChange={(e) => {
+                  setDob(e.target.value);
+                  calculateAge(e.target.value);
+                }}
+              />
+            </div>
+            <div className="m-5">
+              <Label>Sex</Label>
+              <div className="flex flex-row mt-2">
+                <label className="mr-2">
+                  <input
+                    type="radio"
+                    name="sex"
+                    value="male"
+                    checked={sex === "male"}
+                    onChange={handleSexChange}
+                  />
+                  Male
+                </label>
+                <br />
+                <label>
+                  <input
+                    type="radio"
+                    name="sex"
+                    value="female"
+                    checked={sex === "female"}
+                    onChange={handleSexChange}
+                  />
+                  Female
+                </label>
               </div>
-            </Box>
-          </Modal>
+            </div>
+          </div>
+
+          <div className="flex flex-row">
+            <div className="m-5">
+              <Label>Amount of Pregnancies</Label>
+              <Input
+                type="number"
+                min={0}
+                disabled={pregnanciesDisabled}
+                onChange={(e) => {
+                  setPregnancies(parseInt(e.target.value, 10));
+                }}
+              />
+            </div>
+            <div className="m-5">
+              <Label>Plasma Glucose Concentration</Label>
+              <Input
+                type="number"
+                min={0}
+                onChange={(e) => {
+                  setPlasmaGlucoseConcentration(parseInt(e.target.value, 10));
+                }}
+              />
+            </div>
+            <div className="m-5">
+              <Label>Diastolic Blood Pressure (mm Hg)</Label>
+              <Input
+                type="number"
+                min={0}
+                onChange={(e) => {
+                  setDiastolicBloodPressure(parseInt(e.target.value, 10));
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-row">
+            <div className="m-5">
+              <Label>Triceps Skinfold Thickness (mm)</Label>
+              <Input
+                type="number"
+                min={0}
+                onChange={(e) => {
+                  setTricepsSkinfoldThickness(parseInt(e.target.value, 10));
+                }}
+              />
+            </div>
+            <div className="m-5">
+              <Label>2-Hour Serum Insulin (mu U/ml)</Label>
+              <Input
+                type="number"
+                min={0}
+                onChange={(e) => {
+                  setSerumInsulin(parseInt(e.target.value, 10));
+                }}
+              />
+            </div>
+            <div className="m-5">
+              <Label>Body mass index (weight in kg / height in m^2)</Label>
+              <Input
+                type="number"
+                step=".01"
+                min={0}
+                onChange={(e) => {
+                  setBmi(parseFloat(e.target.value));
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-row">
+            <div className="m-5">
+              <Label>Diabetes Pedigree Function</Label>
+              <Input
+                type="number"
+                step=".01"
+                min={0}
+                onChange={(e) => {
+                  setDiabetesPedigreeFunction(parseFloat(e.target.value));
+                }}
+              />
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <Button type="submit" onClick={handleSubmit} className="m-5 w-3/6">
+              Submit
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <h1
+                  id="modal-modal-title"
+                  className="text-center text-2xl font-bold"
+                >
+                  Patient's Data Submitted
+                </h1>
+                <div className="flex justify-center">
+                  <Button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="m-10 w-3/6"
+                  >
+                    <Link to="/hub"> Head to Hub</Link>
+                  </Button>
+                </div>
+              </Box>
+            </Modal>
+          </div>
         </div>
       </div>
     </div>

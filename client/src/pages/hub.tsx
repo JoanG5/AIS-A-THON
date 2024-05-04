@@ -58,7 +58,7 @@ function hub({}: Props) {
           View Patient Data
         </Link>
         <Link
-          to=""
+          to="/classifier"
           className={`h-20 w-4/5 text-xl mx-auto ${buttonVariants({
             variant: "default",
             size: "default",

@@ -10,7 +10,7 @@ class UserDiabetesScreeningData(models.Model):
     first_name = models.CharField(default="", max_length=255, help_text="First name of the individual.")
     last_name = models.CharField(default="", max_length=255, help_text="Last name of the individual.")
     middle_name = models.CharField(default="", max_length=255, help_text="Middle name of the individual.")
-    DOB = models.DateField(default=datetime.now ,help_text="Date of birth of the individual.")
+    DOB = models.DateField(default=datetime.now, help_text="Date of birth of the individual.")
     pregnancies = models.IntegerField(
         validators=[MinValueValidator(0)], 
         help_text="Number of times pregnant."
@@ -42,6 +42,10 @@ class UserDiabetesScreeningData(models.Model):
     age = models.IntegerField(
         validators=[MinValueValidator(0)],
         help_text="Age of the individual."
+    )
+    prediction = models.FloatField(
+        null=True,
+        help_text="(BETA) Classifier's prediction of the individual's likelihood of having diabetes."
     )
 
     class Meta:

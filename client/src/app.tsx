@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import Form from "./pages/form";
 import PatientData from "./pages/patientData";
 import Hub from "./pages/hub";
+import Classifier from "./pages/classifier"
 
 const router = createHashRouter([
     {
@@ -22,6 +23,14 @@ const router = createHashRouter([
     {
         path: "/hub",
         element: <Hub />,
+    },
+    {
+        path: "/classifier",
+        element: <Classifier />,
+    },
+    {
+        path: "*",
+        element: <div>404</div>,
     },
 ])
 
