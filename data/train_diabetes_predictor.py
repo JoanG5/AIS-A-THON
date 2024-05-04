@@ -57,14 +57,14 @@ def load_data(data_dir):
 
 def get_model():
     """
-    Returns a compiled convolutional neural network model. Assume that the
+    Returns a compiled neural network. Assume that the
     `input_shape` of the first layer is `(FEATURES,)`.
     The output layer should have 2 units, one for each category.
     """
     # Create a convolutional neural network
     model = tf.keras.models.Sequential([
         tf.keras.layers.Input(shape=(FEATURES,)),
-        tf.keras.layers.Dense(128, activation='relu', kernel_regularizer=l2(0.001)),
+        tf.keras.layers.Dense(64, activation='relu', kernel_regularizer=l2(0.001)),
         tf.keras.layers.BatchNormalization(),
         tf.keras.layers.Dropout(0.2),
         tf.keras.layers.Dense(64, activation='relu', kernel_regularizer=l2(0.001)),
